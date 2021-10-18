@@ -1,81 +1,92 @@
 #include <iostream>
-#include <string>
-
-
-std::string flag_r(std::string input){
-    int n = input.length();
-     
-    for (int i = 0; i < n / 2; i++)
-    {
-        std::swap(input[i], input[n - i - 1]);
-    }
-    return input;
-}
-    void flag_l(std::string input){
-    int n = input.length();
-    
-    for(int i = 0; i <= n; i++)
-    {
-        std::cout<<input[i]<<"\n";
-    }
-}
+#include <vector>
+#include <algorithm>
 
 
 
-int main(){
+int find_index(std::vector<std::string> v, std::string a)
+{
+    auto it = std::find(v.begin(), v.end(), a);
     int index;
+    
+    if (it != v.end())
+    {
+        index = it - v.begin();
+    }
+    else
+    {
+        index = -1;
+    }
+    return index;
+}
+
+
+
+int main(int argc, char * argv[])
+{
     bool r,l,n = false;
-    std::string input;
-    std::getline(std::cin,input);
+    std::vector<std::string> args = std::vector<std::string>(argv+1, argv + argc);
     
-    if(input.find("-n")!= std::string::npos)
+    //FLAGS
+    if(find_index(args, "-r")!= -1)
     {
-        n = true;
-        index = input.find("-n ");
-        input.replace(index,3,"");
-    }
-    if (input.find("-r")!= std::string::npos)
-    {
+        args.erase(args.begin()+find_index(args,"-r"));
         r = true;
-        index = input.find("-r ");
-        input.replace(index,3,"");
     }
-    if (input.find("-l")!= std::string::npos)
+    if(find_index(args, "-l")!= -1)
     {
+        args.erase(args.begin()+find_index(args,"-l"));
         l = true;
-        index = input.find("-l ");
-        input.replace(index,3,"");
+    }
+    if(find_index(args, "-n")!= -1)
+    {
+        args.erase(args.begin()+find_index(args,"-n"));
+        n = true;
     }
     
-    if(r == true && l == true)
+    //OUTPUT
+    if (r == true && l == true)
     {
-        input = flag_r(input);
-        flag_l(input);
+        std::reverse(args.begin(),args.end());
+        for(std::string a:args)
+        {
+            std::cout <<a<<"\n";
+        }
     }
-    else if (n == true && r ==true)
+   else if(r == true && n == true)
+   {
+       std::reverse(args.begin(),args.end());
+       for(std::string a:args)
+       {
+           std::cout <<a<<" ";
+       }
+   }
+    else if (r == true)
     {
-        input = flag_r(input);
-        std::cout<<input;
+        std::reverse(args.begin(),args.end());
+        for(std::string a:args)
+        {
+            std::cout <<a<<" ";
+        }
     }
-    else if(n == true)
+    else if (l == true)
     {
-        std::cout << input;
+        for(std::string a:args)
+        {
+            std::cout <<a<<"\n";
+        }
     }
-    else if(r == true)
+    else if (n == true)
     {
-        input = flag_r(input);
-        std::cout << input <<"\n";
-    }
-    else if(l == true)
-    {
-        flag_l(input);
+        for(std::string a:args)
+        {
+            std::cout <<a<<" ";
+        }
     }
    
     
-    
-    
-    
-    
-    
-}
 
+    
+
+return 0;
+}
