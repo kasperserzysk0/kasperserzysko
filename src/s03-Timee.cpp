@@ -1,12 +1,21 @@
 #include <iostream>
 #include <sstream>
 #include <cstdio>
+
+enum class Time_of_day{MORNING,NOON,AFTERNOON,NIGHT};
+
+
+
+
+
+
 struct Time
 {
 private:
 	int hour;
 	int minute;
 	int second;
+	Time_of_day time_of_day;
 	
 public:
 	Time(int hour, int minute, int second): hour(hour), minute(minute), second(second){}
@@ -41,6 +50,7 @@ public:
 		if(minute == 59)
 			{
 				minute = 0;
+				hour++;
 			}
 		else
 			{
@@ -53,19 +63,22 @@ public:
 		if(second == 59)
 		{
 			second = 0;
+			minute++;
 		}
 		else
 		{
 			second++;
 		}
 	}
+		//ENUMS
+		
 		
 };
 
 
 int main()
 {
-	Time time(23,15,02);
+	Time time(23,59,02);
 	std::cout<<time.to_string();
 	std::cout<<"Dodano godzine"<<std::endl;
 	time.next_hour();
