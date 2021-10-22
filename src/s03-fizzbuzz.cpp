@@ -10,13 +10,13 @@ int main(){
 	for(int i = 1; i <= liczba; i++){
 		std::cout<<i;
 		if(i%3==0 && i%5==0){
-			std::cout <<" FizzBuzz\n";
-			continue;
+			std::cout <<" FizzBuzz";
+			
 			}
-		if(i%3==0){
+		else if(i%3==0){
 			std::cout<< " Fizz";
 			}
-		if(i%5==0){
+		else if(i%5==0){
 			std::cout<<" Buzz";
 			}
 		
