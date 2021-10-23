@@ -8,7 +8,7 @@ enum class Time_of_day{MORNING,NOON,AFTERNOON,NIGHT};
 
 struct Time{
 
-//*******CONSTRUCTOR********
+//*******KONSTRUKTORY********
 private:
 	int hour;
 	int minute;
@@ -27,8 +27,7 @@ public:
 		return b + "\n";
 		}
 		
-		
-//*******NEXT FUNTIONS********
+//*******FUNKCJE NEXT********
 
 	void next_hour(){
 		if(hour == 23){
@@ -53,7 +52,8 @@ public:
 			second++;
         }}
     
-    //*******ENUMS********
+    //*******ENUMY********
+    
     Time_of_day const time_of_day(){
         Time_of_day rano = Time_of_day::MORNING;
         Time_of_day dzien = Time_of_day::NOON;
@@ -77,7 +77,7 @@ public:
             return os.str();
         }
     
-    //*******OPERATORS********
+    //*******OPERATORY********
     
     Time const operator+ (Time const& time2){
         Time time;
@@ -122,6 +122,7 @@ public:
         }
         else return false;
     }
+    
     bool const operator> (Time const& time2){
         if(hour > time2.hour) return true;
         if(hour == time2.hour){
@@ -134,15 +135,38 @@ public:
         }
         else return false;
     }
+    
     bool const operator== (Time const& time2){
         if(hour == time2.hour && minute == time2.minute && second == time2.second) return true;
         else return false;
     }
+    
     bool const operator!= (Time const& time2){
         if(hour != time2.hour || minute != time2.minute || second || time2.second) return true;
         else return false;
     }
     
+    //SEKUNDY DO PÓŁNOCY
+    
+    unsigned int const count_seconds(){
+        int a = hour * 60 * 60 + minute * 60 + second;
+        return a;
+    }
+    
+    unsigned int const count_minutes(){
+        int a = hour * 60 + minute * 60;
+        return a;
+    }
+    
+    Time const time_to_midnight(){
+        int h,min,sec;
+        h = 24 - hour;
+        min = 60 - minute;
+        sec = 60 - second;
+        
+        Time time(h,min,sec);
+        return time;
+    }
 };
 
 
@@ -214,4 +238,14 @@ int main()  {
     }else{
         std::cout<< "!= - FALSZ\n";
     }
+    
+    // SEKUNDY I MINUTY DO PÓŁNOCY
+    
+    std::cout << "Sekundy: " << time.count_seconds() << std::endl;
+    std::cout << "Minuty: " << time.count_minutes() << std::endl;
+    
+    // CZAS DO PÓŁNOCY
+    
+    Time time_to_midnight = time.time_to_midnight();
+    std::cout << "Czas do północy: " << time_to_midnight.to_string() << std::endl;
 }
