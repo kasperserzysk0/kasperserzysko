@@ -18,7 +18,7 @@ public:
 	Time(int hour, int minute, int second): hour(hour), minute(minute), second(second){}
     Time(){}
 	
-	std::string const to_string(){
+	std::string to_string() const{
 		int a;
 		std::string b;
 		a = printf("%02d:%02d:%02d",hour, minute, second);
@@ -54,7 +54,7 @@ public:
     
     //*******ENUMY********
     
-    Time_of_day const time_of_day(){
+    Time_of_day time_of_day() const{
         Time_of_day rano = Time_of_day::MORNING;
         Time_of_day dzien = Time_of_day::NOON;
         Time_of_day wieczor = Time_of_day::AFTERNOON;
@@ -79,7 +79,7 @@ public:
     
     //*******OPERATORY********
     
-    Time const operator+ (Time const& time2){
+    Time operator+ (Time const& time2) const{
         Time time;
         time.second = second + time2.second;
         time.minute = minute + time2.minute;
@@ -94,7 +94,7 @@ public:
         
         return time;
     }
-    Time const operator- (Time const& time2){
+    Time operator- (Time const& time2) const{
         Time time;
         time.second = second - time2.second;
         time.minute = minute - time2.minute;
@@ -110,7 +110,7 @@ public:
         return time;
     }
         
-    bool const operator< (Time const& time2){
+    bool operator< (Time const& time2) const{
         if(hour < time2.hour) return true;
         if(hour == time2.hour){
             if(minute < time2.minute) return true;
@@ -123,7 +123,7 @@ public:
         else return false;
     }
     
-    bool const operator> (Time const& time2){
+    bool operator> (Time const& time2) const{
         if(hour > time2.hour) return true;
         if(hour == time2.hour){
             if(minute > time2.minute) return true;
@@ -136,29 +136,29 @@ public:
         else return false;
     }
     
-    bool const operator== (Time const& time2){
+    bool operator== (Time const& time2) const{
         if(hour == time2.hour && minute == time2.minute && second == time2.second) return true;
         else return false;
     }
     
-    bool const operator!= (Time const& time2){
+    bool operator!= (Time const& time2) const{
         if(hour != time2.hour || minute != time2.minute || second || time2.second) return true;
         else return false;
     }
     
     //SEKUNDY DO PÓŁNOCY
     
-    unsigned int const count_seconds(){
+    unsigned int count_seconds() const{
         int a = hour * 60 * 60 + minute * 60 + second;
         return a;
     }
     
-    unsigned int const count_minutes(){
+    unsigned int count_minutes() const{
         int a = hour * 60 + minute * 60;
         return a;
     }
     
-    Time const time_to_midnight(){
+    Time time_to_midnight() const{
         int h,min,sec;
         h = 24 - hour;
         min = 60 - minute;
