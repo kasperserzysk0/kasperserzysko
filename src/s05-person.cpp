@@ -45,7 +45,37 @@ class Queen : public Person{
 		return "Queen " + imie + " " + nazwisko + "\n";
 		}
 	};
+	
+class Greetings{
+	public:
+	virtual std::string greet(Person const& a) = 0;
+	};
+	
+class Hello : public Greetings
+{
+	std::string greet(Person const& a){
+		return "Hello " + a.to_string();
+		}
+	};
+class Good_evening : public Greetings
+{
+	std::string greet(Person const& a){
+		return "Good evening " + a.to_string();
+		}
+	};
+class Farawell : public Greetings
+{
+	std::string greet(Person const& a){
+		return "Farawell " + a.to_string();
+		}
+	};
 
+	
+	
+	
+	
+	
+//FUNKCJE
 std::string who_is_it(Person const& a ){
 	return a.to_string();
 	}
@@ -59,4 +89,13 @@ int main(){
 	std::cout << who_is_it(*y) << std::endl;
 	std::cout << who_is_it(*z) << std::endl;
 	std::cout << who_is_it(*v) << std::endl;
+	Greetings* rano = new Hello();
+	Greetings* wieczor = new Good_evening();
+	Greetings* czesc = new Farawell();
+	std::cout << rano->greet(*x) << std::endl;
+	std::cout << czesc->greet(*x) << std::endl;
+	std::cout << wieczor->greet(*y) << std::endl;
+	std::cout << rano->greet(*z) << std::endl;
+	std::cout << wieczor->greet(*z) << std::endl;
+	
 	}
