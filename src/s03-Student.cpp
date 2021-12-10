@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
-
-struct Student
+#include "student.h"
+/*struct Student
 {
 	private:
 	const std::string imie;
@@ -21,14 +21,14 @@ struct Student
 		return os.str();
 		}	
 	};
-
+*/
 
 
 int main()
 {
 	
-	Student student("Kasper", "Serzysko", "24222", 1, 5.2);
-	std::cout<<student.to_string();
+	Student student1("Kasper", "Serzysko", "24222", 1, 5.2);
+	std::cout<<student1.to_string();
 	
 	
 	}
