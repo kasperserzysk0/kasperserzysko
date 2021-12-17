@@ -148,20 +148,22 @@ public:
     //SEKUNDY DO PÓŁNOCY
     
     unsigned int count_seconds() const{
-        int a = hour * 60 * 60 + minute * 60 + second;
+        int a = (24-hour) * 60 * 60 + (60-minute) * 60 + (60-second);
         return a;
     }
     
     unsigned int count_minutes() const{
-        int a = hour * 60 + minute * 60;
+        int a = (24-hour) * 60 + (60-minute);
         return a;
     }
     
     Time time_to_midnight() const{
         int h,min,sec;
-        h = 24 - hour;
-        min = 60 - minute;
+        h = 23 - hour;
+        min = 59 - minute;
         sec = 60 - second;
+        if(sec == 60)
+            sec = 0;{}
         
         Time time(h,min,sec);
         return time;
