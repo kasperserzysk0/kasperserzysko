@@ -152,11 +152,16 @@ public:
     }
     //travel end
     
-    //Funkcja odpoczynku. Podczas odpoczynku istnieje szansa zostania zaatakowanym, jeśli znajdujemy się w lokalizacji z przeciwnikiem. Posiadamy również szanse na odzyskanie większej ilości zdrowia niż normalnie
+    /*Funkcja odpoczynku. Podczas odpoczynku istnieje szansa zostania zaatakowanym,
+     jeśli znajdujemy się w lokalizacji z przeciwnikiem. Posiadamy również szanse na
+    odzyskanie większej ilości zdrowia niż normalnie*/
     
         void restOption(){
             int hp_healed;
-            if(current_location->getEnemy()){                               //jeśli jesteśmy w lokalizacji z przeciwnikami
+            if (hp == max_hp){
+                std::cout<<"Nie potrzebujesz odpoczynku, lepiej zrób coś pożytecznego!"<<std::endl;
+            }
+            else if(current_location->getEnemy()){                               //jeśli jesteśmy w lokalizacji z przeciwnikami
                 int random = Utilities::randomInt();
                 if (random > 80){                                           //warunek ataku z zaskoczenia
                     std::cout<<"Zostałes zaatakowany podczas odpoczynku"<<std::endl;
@@ -166,16 +171,16 @@ public:
                     hp_healed = 40;
                     hp = hp + hp_healed;
                     if (hp>max_hp){
-                        hp_healed = hp - max_hp;
+                        hp_healed = hp_healed - (hp - max_hp);
                         hp = max_hp;
-                        std::cout<<"Obudziłeś się wypoczęty.\nOdzyskałeś "<<hp_healed<<" HP"<<std::endl;
+                        std::cout<<"Obudziłeś się wypoczęty jak nigdy dotąd, zyskałeś dodatkowe zdrowie.\nOdzyskałeś "<<hp_healed<<" HP"<<std::endl;
                     }else
-                        std::cout<<"Obudziłeś się wypoczęty.\nOdzyskałeś "<<hp_healed<<" HP"<<std::endl;
+                        std::cout<<"Obudziłeś się wypoczęty jak nigdy dotąd, zyskałeś dodatkowe zdrowie.\nOdzyskałeś "<<hp_healed<<" HP"<<std::endl;
                 }else{
                     hp_healed = 25;
                     hp = hp + hp_healed;
                     if (hp>max_hp){
-                        hp_healed = hp - max_hp;
+                        hp_healed = hp_healed - (hp - max_hp);
                         hp = max_hp;
                         std::cout<<"Obudziłeś się wypoczęty.\nOdzyskałeś "<<hp_healed<<" HP"<<std::endl;
                     }else
@@ -187,7 +192,7 @@ public:
                     hp_healed = 40;
                     hp = hp + hp_healed;
                     if (hp>max_hp){
-                        hp_healed = hp - max_hp;
+                        hp_healed = hp_healed - (hp - max_hp);
                         hp = max_hp;
                         std::cout<<"Obudziłeś się wypoczęty jak nigdy dotąd, zyskałeś dodatkowe zdrowie.\nOdzyskałeś "<<hp_healed<<" HP"<<std::endl;
                     }else
@@ -196,13 +201,14 @@ public:
                     hp_healed = 25;
                     hp = hp + hp_healed;
                     if (hp>max_hp){
-                        hp_healed = hp - max_hp;
+                        hp_healed = hp_healed - (hp - max_hp);
                         hp = max_hp;
                         std::cout<<"Obudziłeś się wypoczęty.\nOdzyskałeś "<<hp_healed<<" HP"<<std::endl;
                     }else
                         std::cout<<"Obudziłeś się wypoczęty.\nOdzyskałeś "<<hp_healed<<" HP"<<std::endl;
                 }
             }
+            Utilities::placeHolder();
         }
 };
 
