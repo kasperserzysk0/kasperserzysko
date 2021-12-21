@@ -9,30 +9,21 @@
 #define areas_h
 #include "utill.h"
 #include "location.h"
+#include "items.h"
 #include <map>
 #include <string>
+#include <array>
 
 class Areas {
     
-    //Mapa posiadająca wszyskie lokalizacje nasej gry!!!
-    std::map<std::string, Location*> areas_map;
-    
-    
-    void add_areas(){
-        areas_map.insert(std::make_pair("0,0", new Location("jaskinia",0,0,false,false,false,false,false,false, friendly)));
-        areas_map.insert(std::make_pair("0,1", new Location("jaskinia północ",0,1,false,false,true,false,false,false, cave)));
-        areas_map.insert(std::make_pair("1,1", new Location("jaskinia wschód",1,1,false,false,true,false,false,false, cave)));
-        areas_map.insert(std::make_pair("0,2", new Location("jaskinia wyjście",0,2,false,false,true,false,false,false, cave)));
-    }
+    std::map<std::string, Location*> areas_map;         //Mapa posiadająca wszyskie lokalizacje gry
+    Items items;
     
     //Funkcja służy do konwertowania koordynatów i zamiany ich na stringa (klucz mapy jest stringiem)
     std::string coordinatesToString(int x, int y){
         return std::to_string(x) + "," + std::to_string(y);
     }
     
-    void enemyEncounterHelp(){
-        
-    }
     
 public:
     Areas(){
@@ -49,9 +40,11 @@ public:
     
     //Funkcja dla każdego rodzaju lokacji, przyporządkowuje losowego przeciwnika oraz zwraca ilość życia, które przeciwnicy zabiorą bohaterowi po spotkaniu
     
-    int enemyEncounter(Location* location){
-        LocationType type = location->getType();
+   std::array<int,2> enemyEncounter(LocationType type){
+        //LocationType type = location->getType();
+        std::array<int, 2> data_array;
         int hp_lost = 0;
+        int exp_gain = 0;
         std::string enemy;
         int random = Utilities::randomInt();
         
@@ -59,36 +52,125 @@ public:
         switch (type) {
                 
             case cave:{
-                std::string enemies[5] = {"Wielki szczur","Blob","Mrówka gigant","Szkielet","Shrek"};//przeciwnicy w jaskini
+                std::string enemies[5] = {"Wielki szczur","Blob","Mrówka gigant","Szkielet","Mały golem"};//przeciwnicy w jaskini
                 if (random<30) {
                     enemy = enemies[0];
                     hp_lost = 10;
+                    exp_gain = 3;
                     std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
                 }else if (random>=30 && random<70){
                     enemy = enemies[1];
                     hp_lost = 5;
+                    exp_gain = 1;
                     std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
                 }else if (random>=70 && random<90){
                     enemy = enemies[2];
                     hp_lost = 15;
+                    exp_gain = 6;
                     std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
                 }else if (random>=90 && random<98){
                     enemy = enemies[3];
                     hp_lost = 20;
+                    exp_gain = 10;
                     std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
                 }else if (random>=98 && random<=100){
                     enemy = enemies[4];
                     hp_lost = 50;
+                    exp_gain = 30;
                     std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
                 }
                 break;
-            }
+                
+            }       //koniec dla jaskini
+                
+            case old_mine:{
+                std::string enemies[5] = {"Goblin robotnik","Goblin zwiadowca","Goblin wojownik","Goblin szaman","Ogr"};//przeciwnicy w starej kopalni
+                if (random<30) {
+                    enemy = enemies[0];
+                    hp_lost = 10;
+                    exp_gain = 3;
+                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                }else if (random>=30 && random<70){
+                    enemy = enemies[1];
+                    hp_lost = 15;
+                    exp_gain = 7;
+                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                }else if (random>=70 && random<90){
+                    enemy = enemies[2];
+                    hp_lost = 30;
+                    exp_gain = 18;
+                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                }else if (random>=90 && random<98){
+                    enemy = enemies[3];
+                    hp_lost = 35;
+                    exp_gain = 25;
+                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                }else if (random>=98 && random<=100){
+                    enemy = enemies[4];
+                    hp_lost = 85;
+                    exp_gain = 55;
+                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                }
+                break;
+            }                                   //koniec dla starej kopalni
+            case old_mine_boss:{                //BOSS STAREJ KOPALNI
+                enemy = "Król Goblinów Abra-Dab";
+                hp_lost = 124;
+                exp_gain = 100;
+                std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                areas_map.at(coordinatesToString(-4,-1))->setEnemy(false);
+                break;
+            }                                   //KONIEC BOSS 
+                
             case friendly:
                 hp_lost = 0;
+                exp_gain = 0;
                 break;
         }
+        data_array[0] = hp_lost;
+        data_array[1] = exp_gain;
         //koniec switcha
-        return hp_lost;
+        return data_array;
+    }
+    
+    
+    int trapEncounter(LocationType type){
+    
+        switch (type) {
+            case cave_trap:
+                std::cout<<"Sufit korytarza okazał się niestabilny i zawalił się na Ciebie"<<std::endl;
+                break;
+                
+            default:
+                break;
+        }
+        return 100;
+    }
+    
+    
+    //wszystkie lokacje
+private:
+    void add_areas(){
+        
+        //TYP JASKINIA
+        areas_map.insert(std::make_pair("0,0", new Location("jaskinia",true,false,false,false,false,false,false, cave)));
+        areas_map.insert(std::make_pair("0,1", new Location("jaskinia - główny korytarz",false,false,false,true,false,false,false, cave)));
+        areas_map.insert(std::make_pair("1,1", new Location("jaskinia - wschód",false,false,false,true,false,false,false, cave)));
+        areas_map.insert(std::make_pair("0,2", new Location("jaskinia - północ",false,false,false,true,false,false,false, cave)));
+        areas_map.insert(std::make_pair("0,3", new Location("jaskinia - wyjście",false,false,false,true,false,false,false, cave)));
+        areas_map.insert(std::make_pair("-1,2", new Location("jaskinia - zapadnięty korytarz",false,false,false,true,false,false,false, cave)));
+        areas_map.insert(std::make_pair("-2,2", new Location("jaskinia - podziemne przejście",false,false,false,true,false,false,false, cave)));
+        areas_map.insert(std::make_pair("-2,1", new Location("jaskinia - podejrzany pokój",false,false,false,false,false,false,false, cave)));
+        areas_map.insert(std::make_pair("-2,0", new Location("jaskinia - pułapka",false,false,false,false,true,false,false, cave_trap)));
+        
+        //TYP STARA KOPALNIA
+        areas_map.insert(std::make_pair("-3,2", new Location("stara kopalnia przejście",false,false,false,true,false,false,false, old_mine)));
+        areas_map.insert(std::make_pair("-4,2", new Location("stara kopalnia - zachód",false,false,false,true,false,false,false, old_mine)));
+        areas_map.insert(std::make_pair("-4,1", new Location("stara kopalnia - podziemny pałac, wejście",false,false,false,true,false,false,false, old_mine)));
+        areas_map.insert(std::make_pair("-4,0", new Location("stara kopalnia - podziemny pałac",false,false,false,true,false,false,false, old_mine)));
+        areas_map.insert(std::make_pair("-4,-1", new Location("stara kopalnia - podziemny pałac, sala tronowa",false,false,false,true,false,false,false, old_mine_boss))); //BOSS STARA KOPALNIA
+        areas_map.insert(std::make_pair("-4,3", new Location("stara kopalnia - północ",false,false,false,true,false,false,false, old_mine)));
+        areas_map.insert(std::make_pair("-4,-2", new Location("stara kopalnia - królewski magazyn",false,false,false,false,false,true,false, old_mine)));
     }
 };
 

@@ -11,14 +11,16 @@
 enum LocationType{
     friendly,
     cave,
+    cave_trap,
+    old_mine,
+    old_mine_boss,
     
 };
 
 class Location {
     
     std::string name;
-    int posX;
-    int posY;
+    bool discovered;
     bool heal;
     bool shop;
     bool enemy;
@@ -29,11 +31,22 @@ class Location {
     
     
 public:
-    Location(std::string name, int posX, int posY, bool heal, bool shop, bool enemy, bool end_game, bool item, bool win, LocationType type) : name(name), posX(posX), posY(posY), heal(heal), shop(shop), enemy(enemy), end_game(end_game), item(item), win(win), type(type)
+    Location(std::string name, bool discovered, bool heal, bool shop, bool enemy, bool end_game, bool item, bool win, LocationType type) : name(name), discovered(discovered), heal(heal), shop(shop), enemy(enemy), end_game(end_game), item(item), win(win), type(type)
     {}
     std::string getName(){return name;}
+    bool getDiscovered(){return discovered;}
     bool getEnemy(){return enemy;}
+    bool getEndGame(){return end_game;}
+    bool getItem(){return item;}
     LocationType getType(){return type;}
+    
+    
+    void setEnemy(bool enemy){
+        this->enemy = enemy;
+    }
+    void setDiscovered(bool discovered){
+        this->discovered = discovered;
+    }
     
 };
 

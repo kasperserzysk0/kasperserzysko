@@ -55,6 +55,11 @@ public:
         int random = rand() % 100 + 1;
         return random;
     }
+    static int randomItem(){
+        srand((unsigned int)time(NULL));
+        int random = rand() % 3;
+        return random;
+    }
     
 };
 
