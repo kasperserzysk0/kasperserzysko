@@ -125,6 +125,7 @@ private:
                     }
                 }
             }
+            current_location->setItem(false);
         }
     }
     

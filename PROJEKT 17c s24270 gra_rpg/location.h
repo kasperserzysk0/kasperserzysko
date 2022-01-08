@@ -48,6 +48,9 @@ public:
     void setDiscovered(bool discovered){
         this->discovered = discovered;
     }
+    void setItem(bool item){
+        this->item = item;
+    }
     
 };
 
