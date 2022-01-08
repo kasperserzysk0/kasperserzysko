@@ -9,7 +9,6 @@
 #define areas_h
 #include "utill.h"
 #include "location.h"
-#include "items.h"
 #include <map>
 #include <string>
 #include <array>
@@ -17,7 +16,7 @@
 class Areas {
     
     std::map<std::string, Location*> areas_map;         //Mapa posiadająca wszyskie lokalizacje gry
-    Items items;
+
     
     //Funkcja służy do konwertowania koordynatów i zamiany ich na stringa (klucz mapy jest stringiem)
     std::string coordinatesToString(int x, int y){

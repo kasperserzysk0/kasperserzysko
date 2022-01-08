@@ -20,12 +20,13 @@ class Hero {
     int hp = max_hp;
     int exp = 0;
     int exp_to_lvlup = 20;
+    bool has_item = false;
     
     Item* current_item;
     Location* current_location;
     std::string location;
     Areas area;
-    Items* items;
+    Item item;
     
     
     //**************FUNKCJE CHECK*****************
@@ -67,6 +68,8 @@ public:
         std::cout<<"EXP: "<<exp<<"/"<<exp_to_lvlup<<std::endl;
         std::cout<<"HP: "<<hp<<"/"<<max_hp<<std::endl;
         std::cout<<"Aktualna lokalizacja: "<<location<<std::endl;
+        if (!has_item)std::cout<<"Przedmiot: brak"<<std::endl;
+        else std::cout<<"Przedmiot: "<<current_item->getName()<<std::endl;;
         std::cout<<"Wpisz cokolwiek, aby wrócić"<<std::endl;
         std::cout<<"->";
         std::string a;
@@ -91,7 +94,34 @@ private:
             hp = hp - area.trapEncounter(current_location->getType());
         }
         if (current_location->getItem()){
-            
+            Item* item_dropped = item.dropItem();
+            if (!has_item){
+            current_item = item_dropped;
+            has_item = true;
+            std::cout<<"Zdobyłeś "<<item_dropped->getName()<<" ("<<item_dropped->getPower()<<")"<<std::endl;
+            }else{
+                char choice;
+                bool done = false;
+                    while(!done){
+                    std::cout<<"Twój aktualny przedmiot: "<<current_item->getName();
+                    std::cout<<"Zamienić na: "<<item_dropped->getName()<<" ("<<item_dropped->getPower()<<")"<<std::endl;
+                    std::cout<<"y - Tak\nn - Nie"<<std::endl;
+                    std::cin>>choice;
+                    switch (choice)
+                    {
+                        case 'y':
+                            current_item = item_dropped;
+                            done = true;
+                            break;
+                        case 'n':
+                            done = true;
+                            break;
+                        default:
+                                Utilities::errorMessage;
+                            break;
+                    }
+                }
+            }
         }
     }
     

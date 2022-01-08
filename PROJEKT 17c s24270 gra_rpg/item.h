@@ -7,26 +7,45 @@
 
 #ifndef item_h
 #define item_h
-
-enum ItemType{
-    fight,
-    experience,
-    travel,
-};
+#include"utill.h"
 
 class Item {
     std::string name;
-    ItemType type;
     int power;
-    
+    std::string items[9] = {"miecz", "łuk", "różdżka", "topór", "szbla", "pałka", "młot", "kusza", "sztylet"};    
     
 public:
-    Item(std::string name, int power, ItemType type) : name(name), type(type), power(power)
+    Item(std::string name, int power) : name(name), power(power)
     {}
-    
+    Item(){}
     int getPower(){return power;}
-    
+    std::string getName(){return name;}
+
+    Item* dropItem(){
+            name = items[Utilities::randomNumber(8)];
+            int chances = Utilities::randomInt();
+        
+            if (chances > 0 ){
+                name = "zwykły/a " + name;
+                power = 5;
+            }else if (chances > 65 && chances <= 85)
+            {
+                name = "unikatowy/a " + name;
+                power = 10;
+            }else if (chances > 85 && chances <= 95)
+            {
+                name = "heroiczny/a " + name;
+                power = 15;
+            }else{
+                name = "legendarny/a " + name;
+                power = 20;
+            }
+            std::cout<<"Zdobyłeś "<<name<<" ("<<power<<")"<<std::endl;
+        return new Item(name, power);
+    }
 };
+
+
 
 
 #endif /* item_h */
