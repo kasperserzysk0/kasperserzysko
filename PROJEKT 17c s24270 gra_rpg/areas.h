@@ -38,12 +38,15 @@ public:
     
     
     //Funkcja dla każdego rodzaju lokacji, przyporządkowuje losowego przeciwnika oraz zwraca ilość życia, które przeciwnicy zabiorą bohaterowi po spotkaniu
+
     
-   std::array<int,2> enemyEncounter(LocationType type){
+    
+   std::array<int,3> enemyEncounter(LocationType type){
         //LocationType type = location->getType();
-        std::array<int, 2> data_array;
+        std::array<int, 3> data_array;
         int hp_lost = 0;
         int exp_gain = 0;
+        int gold_gain = 0;
         std::string enemy;
         int random = Utilities::randomInt();
         
@@ -56,27 +59,32 @@ public:
                     enemy = enemies[0];
                     hp_lost = 10;
                     exp_gain = 3;
-                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                    gold_gain = Utilities::randomNumber(2);
+                    
                 }else if (random>=30 && random<70){
                     enemy = enemies[1];
                     hp_lost = 5;
                     exp_gain = 1;
-                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                    gold_gain = Utilities::randomNumber(2);
+
                 }else if (random>=70 && random<90){
                     enemy = enemies[2];
                     hp_lost = 15;
                     exp_gain = 6;
-                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                    gold_gain = Utilities::randomNumber(2);
+
                 }else if (random>=90 && random<98){
                     enemy = enemies[3];
                     hp_lost = 20;
                     exp_gain = 10;
-                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                    gold_gain = Utilities::randomNumber(6);
+
                 }else if (random>=98 && random<=100){
                     enemy = enemies[4];
                     hp_lost = 50;
                     exp_gain = 30;
-                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                    gold_gain = Utilities::randomNumber(5);
+
                 }
                 break;
                 
@@ -88,27 +96,32 @@ public:
                     enemy = enemies[0];
                     hp_lost = 10;
                     exp_gain = 3;
-                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                    gold_gain = Utilities::randomNumber(4);
+
                 }else if (random>=30 && random<70){
                     enemy = enemies[1];
                     hp_lost = 15;
                     exp_gain = 7;
-                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                    gold_gain = Utilities::randomNumber(4);
+
                 }else if (random>=70 && random<90){
                     enemy = enemies[2];
                     hp_lost = 30;
                     exp_gain = 18;
-                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                    gold_gain = Utilities::randomNumber(6);
+
                 }else if (random>=90 && random<98){
                     enemy = enemies[3];
                     hp_lost = 35;
                     exp_gain = 25;
-                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                    gold_gain = Utilities::randomNumber(10);
+
                 }else if (random>=98 && random<=100){
                     enemy = enemies[4];
                     hp_lost = 85;
                     exp_gain = 55;
-                    std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                    gold_gain = Utilities::randomNumber(2);
+
                 }
                 break;
             }                                   //koniec dla starej kopalni
@@ -116,7 +129,7 @@ public:
                 enemy = "Król Goblinów Abra-Dab";
                 hp_lost = 124;
                 exp_gain = 100;
-                std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP"<<std::endl;
+                gold_gain = 20;
                 areas_map.at(coordinatesToString(-4,-1))->setEnemy(false);
                 break;
             }                                   //KONIEC BOSS 
@@ -124,10 +137,13 @@ public:
             case friendly:
                 hp_lost = 0;
                 exp_gain = 0;
+                gold_gain = 0;
                 break;
         }
         data_array[0] = hp_lost;
         data_array[1] = exp_gain;
+        data_array[2] = gold_gain;
+        std::cout<<"\nNatrafiłeś na przeciwnika: "<<enemy<<".\nStraciłeś "<<hp_lost<<"HP\nZyskałeś: "<<exp_gain<<"EXP i "<<gold_gain<<" złota"<<std::endl;
         //koniec switcha
         return data_array;
     }

@@ -40,7 +40,7 @@ public:
                 name = "legendarny/a " + name;
                 power = 20;
             }
-            std::cout<<"Zdobyłeś "<<name<<" ("<<power<<")"<<std::endl;
+            
         return new Item(name, power);
     }
 };

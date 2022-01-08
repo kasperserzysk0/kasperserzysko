@@ -17,6 +17,11 @@ public:
         int random = rand() % x;
         return random;
     }
+    static int randomExp(int x){
+        srand((unsigned int)time(NULL));
+        int random = rand() % x + 1;
+        return random;
+    }
     static void sleepFor(int n){
         std::chrono::milliseconds timespan(n);
         std::this_thread::sleep_for(timespan);

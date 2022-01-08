@@ -21,7 +21,8 @@ class Hero {
     int exp = 0;
     int exp_to_lvlup = 20;
     bool has_item = false;
-    
+    int gold = 0;
+
     Item* current_item;
     Location* current_location;
     std::string location;
@@ -70,6 +71,7 @@ public:
         std::cout<<"Aktualna lokalizacja: "<<location<<std::endl;
         if (!has_item)std::cout<<"Przedmiot: brak"<<std::endl;
         else std::cout<<"Przedmiot: "<<current_item->getName()<<std::endl;;
+        std::cout<<"Złoto: "<<gold<<std::endl;
         std::cout<<"Wpisz cokolwiek, aby wrócić"<<std::endl;
         std::cout<<"->";
         std::string a;
@@ -84,11 +86,11 @@ private:
     //*********OBSŁUGA ZDARZEŃ**************
     void event(){
         
-        if (current_location->getEnemy()) {
-            std::array<int,2> array_data = area.enemyEncounter(current_location->getType());
-            hp = hp - array_data[0];
-            exp = exp + array_data[1];
+        if (current_location->getEnemy()) { 
+            std::array<int,3> array_data = area.enemyEncounter(current_location->getType());
+           battle(array_data);
         }
+
         if (current_location->getEndGame())
         {
             hp = hp - area.trapEncounter(current_location->getType());
@@ -107,6 +109,7 @@ private:
                     std::cout<<"Zamienić na: "<<item_dropped->getName()<<" ("<<item_dropped->getPower()<<")"<<std::endl;
                     std::cout<<"y - Tak\nn - Nie"<<std::endl;
                     std::cin>>choice;
+                    choice = tolower(choice);
                     switch (choice)
                     {
                         case 'y':
@@ -239,8 +242,6 @@ public:
                 area.getArea(posX, posY)->setDiscovered(true);
                 Utilities::placeHolder();
                 event();
-                hpCheck();
-                expCheck();
                 Utilities::placeHolder();
             }
         }
@@ -265,11 +266,9 @@ public:
                 int random = Utilities::randomInt();
                 if (random > 80){                                           //warunek ataku z zaskoczenia
                     std::cout<<"Zostałes zaatakowany podczas odpoczynku"<<std::endl;
-                    std::array<int, 2> array_data = area.enemyEncounter(current_location->getType());
-                    hp = hp - array_data[0];
-                    exp = exp + array_data[1];
-                    hpCheck();
-                    expCheck();
+                    std::array<int, 3> array_data = area.enemyEncounter(current_location->getType());
+                    battle(array_data);
+                    
                 }else if(random < 20){
                     hp_healed = 40;
                     hp = hp + hp_healed;
@@ -312,6 +311,118 @@ public:
                 }
             }
             Utilities::placeHolder();
+        }
+
+
+
+        void enterShop(){
+            if( current_location->getType() != shop){
+                std::cout<<"W tej lokacji nie ma sklepu, spróbuj gdzieś indziej!"<<std::endl;
+                return;
+            }else{
+                bool enter = false;
+                while(!enter){
+                    int choice;
+                    std::cout<<"Co chciałbyś kupić?\n1 - Losowy przedmiot (100g))\n2 - Losowe doświadczenie (75g)"<<std::endl;
+                    std::cin>>choice;
+                    choice = tolower(choice);
+                    switch (choice)
+                    {
+                    case 1:
+                        if (gold >= 100)
+                        {
+                            bool enter2 = false;
+                            if((gold - 100) >= 0) {
+                            gold = gold - 100;
+                            }else{
+                                gold = 0;
+                            }
+                            Item* bought_item = item.dropItem();
+                            
+                            while (!enter2)
+                            {
+                                char choice2;
+                                std::cout<<"Kupiłeś: "<<bought_item->getName()<<"("<<bought_item->getPower()<<")"<<std::endl;
+                                std::cout<<"Twój aktualny przedmiot: "<<current_item->getName()<<"("<<current_item->getPower()<<")"<<std::endl;
+                                std::cout<<"Zamienić?\ny - Tak\nn - Nie"<<std::endl;
+                                std::cin>>choice2;
+                                choice2 = tolower(choice2);
+                                switch (choice2)
+                                {
+                                case 'y':
+                                    current_item = bought_item;
+                                    enter2 = true;
+                                    break;
+                                case 'n':
+                                    enter2 = true;
+                                    break;
+                                default:
+                                    Utilities::errorMessage;
+                                    break;
+                                }
+                            }
+                            
+                        }else{
+                            std::cout<<"Nie masz tyle złota, wróć innym razem!"<<std::endl;
+                        }
+                        
+                        break;
+                    case 2:
+                        if (gold >= 75)
+                        {
+                            bool enter2 = false;
+                            if((gold - 75) >= 0) {
+                            gold = gold - 75;
+                            }else{
+                                gold = 0;
+                            }
+                            int bought_exp = Utilities::randomExp(50);
+                            
+                            while (!enter2)
+                            {
+                                char choice2;
+                                std::cout<<"Kupiłeś: "<<bought_exp<<" EXP'a"<<std::endl;
+                                exp = exp + bought_exp;
+                                expCheck();
+                            }
+                            
+                        }else{
+                            std::cout<<"Nie masz tyle złota, wróć innym razem!"<<std::endl;
+                        }
+
+                    default:
+                        Utilities::errorMessage;
+                        break;
+                    }
+                }
+
+            }
+
+        }
+
+    private:
+
+        void battle(std::array<int, 3> array_data){
+            if (has_item)
+            {
+                if ((array_data[0] - current_item->getPower()) < 0)
+                {
+                    std::cout<<"Posiadasz: "<<current_item->getName()<<" więc straciłeś: 0 punktów zdrowia"<<std::endl;
+                    exp = exp + array_data[1];
+                    gold = gold + array_data[2];
+                }else
+                    std::cout<<"Posiadasz: "<<current_item->getName()<<" więc straciłeś: "<<(array_data[0] - current_item->getPower())<<std::endl;
+                    hp = hp - array_data[0] - current_item->getPower();
+                    exp = exp + array_data[1];
+                    gold = gold + array_data[2];
+                 
+            }else{
+                hp = hp - array_data[0];
+                exp = exp + array_data[1];
+                gold = gold + array_data[2];
+            }
+            hpCheck();
+            expCheck();
         }
 };
 
