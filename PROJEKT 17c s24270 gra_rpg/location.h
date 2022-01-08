@@ -12,10 +12,10 @@ enum LocationType{
     friendly,
     shop,
     cave,
-    cave_trap,
     old_mine,
     old_mine_boss,
-    
+    valley,
+    valley_boss
 };
 
 class Location {

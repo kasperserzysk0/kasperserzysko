@@ -93,7 +93,8 @@ private:
 
         if (current_location->getEndGame())
         {
-            hp = hp - area.trapEncounter(current_location->getType());
+            std::cout<<"Wpadłeś w pułapke, nie żyjesz"<<std::endl;
+            hp = 0;
         }
         if (current_location->getItem()){
             Item* item_dropped = item.dropItem();

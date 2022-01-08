@@ -29,6 +29,7 @@ int main(int argc, const char * argv[]) {
                 hero.travelOption();
                 break;
             case 'b':
+                hero.enterShop();
                 break;
             case 'o':
                 hero.restOption();

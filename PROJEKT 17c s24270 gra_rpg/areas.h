@@ -133,7 +133,50 @@ public:
                 areas_map.at(coordinatesToString(-4,-1))->setEnemy(false);
                 break;
             }                                   //KONIEC BOSS 
-                
+
+            case valley:{
+                std::string enemies[5] = {"Bandyta","Najemnik","Bandyta łucznik","Najemny zabójca","Herszt Bandytów"};//przeciwnicy w starej kopalni
+                if (random<30) {
+                    enemy = enemies[0];
+                    hp_lost = 35;
+                    exp_gain = 15;
+                    gold_gain = Utilities::randomNumber(4);
+
+                }else if (random>=30 && random<70){
+                    enemy = enemies[1];
+                    hp_lost = 45;
+                    exp_gain = 20;
+                    gold_gain = Utilities::randomNumber(4);
+
+                }else if (random>=70 && random<90){
+                    enemy = enemies[2];
+                    hp_lost = 65;
+                    exp_gain = 30;
+                    gold_gain = Utilities::randomNumber(6);
+
+                }else if (random>=90 && random<98){
+                    enemy = enemies[3];
+                    hp_lost = 80;
+                    exp_gain = 45;
+                    gold_gain = Utilities::randomNumber(10);
+
+                }else if (random>=98 && random<=100){
+                    enemy = enemies[4];
+                    hp_lost = 110;
+                    exp_gain = 70;
+                    gold_gain = Utilities::randomNumber(2);
+
+                }
+                break;
+            }                          
+                case valley_boss:{                //BOSS STAREJ KOPALNI
+                enemy = "Żywiołak wody";
+                hp_lost = 200;
+                exp_gain = 250;
+                gold_gain = 50;
+                areas_map.at(coordinatesToString(4,6))->setEnemy(false);
+                break;
+            }            
             case friendly:
                 hp_lost = 0;
                 exp_gain = 0;
@@ -149,18 +192,7 @@ public:
     }
     
     
-    int trapEncounter(LocationType type){
-    
-        switch (type) {
-            case cave_trap:
-                std::cout<<"Sufit korytarza okazał się niestabilny i zawalił się na Ciebie"<<std::endl;
-                break;
-                
-            default:
-                break;
-        }
-        return 100;
-    }
+   
     
     
     //wszystkie lokacje
@@ -176,7 +208,7 @@ private:
         areas_map.insert(std::make_pair("-1,2", new Location("jaskinia - zapadnięty korytarz",false,false,false,true,false,false,false, cave)));
         areas_map.insert(std::make_pair("-2,2", new Location("jaskinia - podziemne przejście",false,false,false,true,false,false,false, cave)));
         areas_map.insert(std::make_pair("-2,1", new Location("jaskinia - podejrzany pokój",false,false,false,false,false,false,false, cave)));
-        areas_map.insert(std::make_pair("-2,0", new Location("jaskinia - pułapka",false,false,false,false,true,false,false, cave_trap)));
+        areas_map.insert(std::make_pair("-2,0", new Location("jaskinia - pułapka",false,false,false,false,true,false,false, cave)));
         
         //TYP STARA KOPALNIA
         areas_map.insert(std::make_pair("-3,2", new Location("stara kopalnia przejście",false,false,false,true,false,false,false, old_mine)));
@@ -186,6 +218,19 @@ private:
         areas_map.insert(std::make_pair("-4,-1", new Location("stara kopalnia - podziemny pałac, sala tronowa",false,false,false,true,false,false,false, old_mine_boss))); //BOSS STARA KOPALNIA
         areas_map.insert(std::make_pair("-4,3", new Location("stara kopalnia - północ",false,false,false,true,false,false,false, old_mine)));
         areas_map.insert(std::make_pair("-4,-2", new Location("stara kopalnia - królewski magazyn",false,false,false,false,false,true,false, old_mine)));
+
+        //NIZINA
+        areas_map.insert(std::make_pair("0,4", new Location("dolina - wejście do kopalni",false,true,false,false,false,false,false, valley)));
+        areas_map.insert(std::make_pair("0,5", new Location("dolina - południowe przejście",false,false,false,true,false,false,false, valley)));
+        areas_map.insert(std::make_pair("0,6", new Location("dolina - karczma",false,false,true,false,false,false,false, valley)));
+        areas_map.insert(std::make_pair("1,6", new Location("dolina - zejście do rzeki",false,false,false,true,false,false,false, valley)));
+        areas_map.insert(std::make_pair("2,6", new Location("dolina - wschód",false,false,false,true,false,false,false, valley)));
+        areas_map.insert(std::make_pair("3,6", new Location("dolina - głeboka rzeka",false,false,false,false,true,false,false, valley)));
+        areas_map.insert(std::make_pair("2,5", new Location("dolina - rzeka",false,false,false,true,false,false,false, valley)));
+        areas_map.insert(std::make_pair("3,5", new Location("dolina - most",false,false,false,true,false,false,false, valley)));
+        areas_map.insert(std::make_pair("4,5", new Location("dolina - plaża",false,false,false,true,false,false,false, valley)));
+        areas_map.insert(std::make_pair("4,6", new Location("dolina - wzgórze",false,false,false,true,false,false,false, valley_boss)));
+        areas_map.insert(std::make_pair("5,6", new Location("dolina - stara chata",false,false,true,false,false,false,false, valley)));
     }
 };
 
