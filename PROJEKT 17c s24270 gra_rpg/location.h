@@ -10,7 +10,6 @@
 
 enum LocationType{
     friendly,
-    shop,
     cave,
     old_mine,
     old_mine_boss,
@@ -39,6 +38,8 @@ public:
     bool getEnemy(){return enemy;}
     bool getEndGame(){return end_game;}
     bool getItem(){return item;}
+    bool getHeal(){return heal;}
+    bool getShop(){return shop;}
     LocationType getType(){return type;}
     
     

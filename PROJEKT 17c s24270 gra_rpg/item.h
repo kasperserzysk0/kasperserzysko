@@ -12,7 +12,7 @@
 class Item {
     std::string name;
     int power;
-    std::string items[9] = {"miecz", "łuk", "różdżka", "topór", "szbla", "pałka", "młot", "kusza", "sztylet"};    
+    std::string items[9] = {"miecz", "łuk", "różdżka", "topór", "szabla", "pałka", "młot", "kusza", "sztylet"};    
     
 public:
     Item(std::string name, int power) : name(name), power(power)

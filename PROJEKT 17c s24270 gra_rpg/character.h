@@ -14,14 +14,14 @@
 
 class Hero {
     int posX = 0;
-    int posY = 0;
+    int posY = 5;
     int lvl = 0;
     int max_hp = 1000;
     int hp = max_hp;
     int exp = 0;
     int exp_to_lvlup = 20;
     bool has_item = false;
-    int gold = 0;
+    int gold = 200;
 
     Item* current_item;
     Location* current_location;
@@ -70,12 +70,12 @@ public:
         std::cout<<"HP: "<<hp<<"/"<<max_hp<<std::endl;
         std::cout<<"Aktualna lokalizacja: "<<location<<std::endl;
         if (!has_item)std::cout<<"Przedmiot: brak"<<std::endl;
-        else std::cout<<"Przedmiot: "<<current_item->getName()<<std::endl;;
+        else std::cout<<"Przedmiot: "<<current_item->getName()<<" ("<<current_item->getPower()<<")"<<std::endl;;
         std::cout<<"Złoto: "<<gold<<std::endl;
         std::cout<<"Wpisz cokolwiek, aby wrócić"<<std::endl;
         std::cout<<"->";
         std::string a;
-        std::cin >> a;
+        getline(std::cin, a);
         Utilities::placeHolder();
     }
     
@@ -95,23 +95,24 @@ private:
         {
             std::cout<<"Wpadłeś w pułapke, nie żyjesz"<<std::endl;
             hp = 0;
+            hpCheck();
         }
         if (current_location->getItem()){
             Item* item_dropped = item.dropItem();
             if (!has_item){
             current_item = item_dropped;
             has_item = true;
-            std::cout<<"Zdobyłeś "<<item_dropped->getName()<<" ("<<item_dropped->getPower()<<")"<<std::endl;
+            std::cout<<"************Zdobyłeś "<<item_dropped->getName()<<" ("<<item_dropped->getPower()<<")*************\n"<<std::endl;
             }else{
-                char choice;
+                std::string choice;
                 bool done = false;
                     while(!done){
                     std::cout<<"Twój aktualny przedmiot: "<<current_item->getName();
                     std::cout<<"Zamienić na: "<<item_dropped->getName()<<" ("<<item_dropped->getPower()<<")"<<std::endl;
                     std::cout<<"y - Tak\nn - Nie"<<std::endl;
-                    std::cin>>choice;
-                    choice = tolower(choice);
-                    switch (choice)
+                    std::cout<<"-> ";
+                    ;
+                    switch (Utilities::getInput(choice))
                     {
                         case 'y':
                             current_item = item_dropped;
@@ -128,6 +129,12 @@ private:
             }
             current_location->setItem(false);
         }
+        if (current_location->getHeal())
+        {
+            hp = max_hp;
+            std::cout<<"Twoje życie zostało odnowione"<<std::endl;
+        }
+        
     }
     
     //**********SYSTEM PODRÓZY************
@@ -177,18 +184,18 @@ public:
     
     //funkcja podróży
     void travelOption(){
-        char choice;
+        std::string choice;
         int end = 0;
         
         while (end == 0) {
             Utilities::clearScreen();
             availableLocations();
-            std::cin>>choice;
-            choice = tolower(choice);
+            
+            
             /*
              Po każdym wyborze funkcja existCheck sprawdza, czy "nie wyszliśmy" poza mapę, jeślie nie, to zmienia naszą pozycję (posX lub posY), znajduje tą pozycje na mapie (z headera "areas.h") i ustawia ją jako naszą current_location.
              */
-            switch (choice) {
+            switch (Utilities::getInput(choice)) {
                 case 'n':
                     if (area.existCheck(posX, posY + 1)) {
                         end = 1;
@@ -242,7 +249,7 @@ public:
             if (end == 1) {                                         //Po każdym przejściu do innej lokacji, wykonywany jest konkretny event, oraz sprawdznay jest stan zdrowia oraz punkty doświadczenia
                 std::cout<<"Dotarłeś do " <<location<<std::endl;
                 area.getArea(posX, posY)->setDiscovered(true);
-                Utilities::placeHolder();
+                std::cout<<std::endl;
                 event();
                 Utilities::placeHolder();
             }
@@ -318,19 +325,22 @@ public:
 
 
         void enterShop(){
-            if( current_location->getType() != shop){
-                std::cout<<"W tej lokacji nie ma sklepu, spróbuj gdzieś indziej!"<<std::endl;
+            
+            if( !current_location->getShop()){
+                std::cout<<"\nW tej lokacji nie ma sklepu, spróbuj gdzieś indziej!"<<std::endl;
+                Utilities::placeHolder();
                 return;
+
             }else{
+                Utilities::clearScreen();
                 bool enter = false;
                 while(!enter){
-                    int choice;
-                    std::cout<<"Co chciałbyś kupić?\n1 - Losowy przedmiot (100g))\n2 - Losowe doświadczenie (75g)"<<std::endl;
-                    std::cin>>choice;
-                    choice = tolower(choice);
-                    switch (choice)
+                    std::string choice;
+                    std::cout<<"Co chciałbyś kupić?\np - Losowy przedmiot (100g))\nd - Losowe doświadczenie (75g)\nw - Wyjście"<<std::endl;
+                    std::cout<<"-> ";
+                    switch (Utilities::getInput(choice))
                     {
-                    case 1:
+                    case 'p':
                         if (gold >= 100)
                         {
                             bool enter2 = false;
@@ -343,33 +353,46 @@ public:
                             
                             while (!enter2)
                             {
-                                char choice2;
-                                std::cout<<"Kupiłeś: "<<bought_item->getName()<<"("<<bought_item->getPower()<<")"<<std::endl;
-                                std::cout<<"Twój aktualny przedmiot: "<<current_item->getName()<<"("<<current_item->getPower()<<")"<<std::endl;
-                                std::cout<<"Zamienić?\ny - Tak\nn - Nie"<<std::endl;
-                                std::cin>>choice2;
-                                choice2 = tolower(choice2);
-                                switch (choice2)
+                                std::string choice2;
+                                std::cout<<"\nKupiłeś: "<<bought_item->getName()<<"("<<bought_item->getPower()<<")"<<std::endl;
+                                if (!has_item)
                                 {
-                                case 'y':
                                     current_item = bought_item;
                                     enter2 = true;
-                                    break;
-                                case 'n':
-                                    enter2 = true;
-                                    break;
-                                default:
-                                    Utilities::errorMessage;
-                                    break;
+                                    has_item = true;
+                                }else{
+                                
+                                    std::cout<<"Twój aktualny przedmiot: "<<current_item->getName()<<"("<<current_item->getPower()<<")"<<std::endl;
+                                    std::cout<<"Zamienić?\ny - Tak\nn - Nie"<<std::endl;
+                                    std::cout<<"-> ";
+                                    switch (Utilities::getInput(choice2))
+                                    {
+                                    case 'y':
+                                        current_item = bought_item;
+                                        enter2 = true;
+                                    
+                                        break;
+                                    case 'n':
+                                        
+                                        enter2 = true;
+                                        break;
+                                    default:
+                                        Utilities::errorMessage();
+                                        
+                                        break;
+                                    } 
                                 }
                             }
                             
-                        }else{
-                            std::cout<<"Nie masz tyle złota, wróć innym razem!"<<std::endl;
-                        }
-                        
-                        break;
-                    case 2:
+                            }else{
+                                std::cout<<"Nie masz tyle złota, wróć innym razem!"<<std::endl;
+                                
+                            }
+                            
+                            enter = true;
+                            break;
+
+                    case 'd':
                         if (gold >= 75)
                         {
                             bool enter2 = false;
@@ -386,18 +409,30 @@ public:
                                 std::cout<<"Kupiłeś: "<<bought_exp<<" EXP'a"<<std::endl;
                                 exp = exp + bought_exp;
                                 expCheck();
+                                enter2 = true;
+                                
                             }
                             
                         }else{
                             std::cout<<"Nie masz tyle złota, wróć innym razem!"<<std::endl;
+                            
                         }
 
+                        
+                        enter = true;
+                        break;
+
+                    case 'w':
+                        
+                        enter = true;
+                        break;
+
                     default:
-                        Utilities::errorMessage;
+                        
                         break;
                     }
                 }
-
+                Utilities::placeHolder();
             }
 
         }

@@ -14,14 +14,14 @@ int main(int argc, const char * argv[]) {
     
     
     while (true) {
-        char choice;
+        std::string choice;
         Utilities::clearScreen();
             std::cout<<"DZIAŁANIA:\ns - Status Postaci\np - Podróż\nb - Sklep\no - Odpocznij\nw - Wyjdź"<<std::endl;
         std::cout<<"-> ";
-        std::cin>>choice;
-        choice = tolower(choice);
         
-        switch (choice) {
+        
+        
+        switch (Utilities::getInput(choice)) {
             case 's':
                 hero.statusCheckOption();
                 break;
@@ -29,6 +29,7 @@ int main(int argc, const char * argv[]) {
                 hero.travelOption();
                 break;
             case 'b':
+                
                 hero.enterShop();
                 break;
             case 'o':

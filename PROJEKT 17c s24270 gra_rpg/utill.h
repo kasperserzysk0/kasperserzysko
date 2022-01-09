@@ -70,6 +70,21 @@ public:
         int random = rand() % 3;
         return random;
     }
+
+    static char getInput(std::string s){
+        char r;
+
+        if ( !getline( std::cin, s ) ){    // reads a whole line
+        return '9';
+
+        }else if ( s.size() != 1 ){
+        return '9';
+
+        }else{
+            r = s[0];
+            return tolower(r);
+        }
+    }
     
 };
 
