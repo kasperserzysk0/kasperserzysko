@@ -170,18 +170,102 @@ public:
                 break;
             }                          
                 case valley_boss:{                //BOSS STAREJ KOPALNI
-                enemy = "Żywiołak wody";
+                enemy = "Południca";
                 hp_lost = 200;
-                exp_gain = 250;
+                exp_gain = 150;
                 gold_gain = 50;
                 areas_map.at(coordinatesToString(4,6))->setEnemy(false);
                 break;
-            }            
-            case friendly:
-                hp_lost = 0;
-                exp_gain = 0;
-                gold_gain = 0;
+            }  
+
+            case forest:{                       //LAS
+                std::string enemies[5] = {"Leśniczy","Dzik","Wilk","Ghoul","Niedźwiedź"};//przeciwnicy w starej kopalni
+                if (random<30) {
+                    enemy = enemies[0];
+                    hp_lost = 80;
+                    exp_gain = 40;
+                    gold_gain = Utilities::randomNumber(4);
+
+                }else if (random>=30 && random<70){
+                    enemy = enemies[1];
+                    hp_lost = 100;
+                    exp_gain = 50;
+                    gold_gain = Utilities::randomNumber(4);
+
+                }else if (random>=70 && random<90){
+                    enemy = enemies[2];
+                    hp_lost = 130;
+                    exp_gain = 60;
+                    gold_gain = Utilities::randomNumber(6);
+
+                }else if (random>=90 && random<98){
+                    enemy = enemies[3];
+                    hp_lost = 165;
+                    exp_gain = 80;
+                    gold_gain = Utilities::randomNumber(10);
+
+                }else if (random>=98 && random<=100){
+                    enemy = enemies[4];
+                    hp_lost = 200;
+                    exp_gain = 125;
+                    gold_gain = Utilities::randomNumber(2);
+
+                }
                 break;
+            }  
+
+            case forest_boss:{                //BOSS STAREJ KOPALNI
+                enemy = "Południca";
+                hp_lost = 300;
+                exp_gain = 225;
+                gold_gain = 100;
+                areas_map.at(coordinatesToString(-4,5))->setEnemy(false);
+                break;
+            }  
+            case city:{                       //LAS
+                std::string enemies[5] = {"Parobek","Kieszonkowiec","Marynarz","Strażnik","El Szefe"};//przeciwnicy w starej kopalni
+                if (random<30) {
+                    enemy = enemies[0];
+                    hp_lost = 20;
+                    exp_gain = 5;
+                    gold_gain = Utilities::randomNumber(4);
+
+                }else if (random>=30 && random<70){
+                    enemy = enemies[1];
+                    hp_lost = 50;
+                    exp_gain = 10;
+                    gold_gain = Utilities::randomNumber(4);
+
+                }else if (random>=70 && random<90){
+                    enemy = enemies[2];
+                    hp_lost = 100;
+                    exp_gain = 60;
+                    gold_gain = Utilities::randomNumber(6);
+
+                }else if (random>=90 && random<98){
+                    enemy = enemies[3];
+                    hp_lost = 200;
+                    exp_gain = 100;
+                    gold_gain = Utilities::randomNumber(10);
+
+                }else if (random>=98 && random<=100){
+                    enemy = enemies[4];
+                    hp_lost = 250;
+                    exp_gain = 150;
+                    gold_gain = Utilities::randomNumber(2);
+
+                }
+                break;
+            }  
+            case city_boss:{                //BOSS STAREJ KOPALNI
+                enemy = "Kapitan piratów";
+                hp_lost = 400;
+                exp_gain = 250;
+                gold_gain = 400;
+                areas_map.at(coordinatesToString(-3,9))->setEnemy(false);
+                break;
+            }  
+            
         }
         data_array[0] = hp_lost;
         data_array[1] = exp_gain;
@@ -231,7 +315,39 @@ private:
         areas_map.insert(std::make_pair("4,5", new Location("dolina - plaża",false,false,false,true,false,false,false, valley)));
         areas_map.insert(std::make_pair("4,6", new Location("dolina - wzgórze",false,false,false,true,false,false,false, valley_boss)));
         areas_map.insert(std::make_pair("5,6", new Location("dolina - stara chata",false,false,true,false,false,false,false, valley)));
+        areas_map.insert(std::make_pair("0,7", new Location("dolina - północ",false,false,false,true,false,false,false, valley)));
+
+
+        //LAS
+        areas_map.insert(std::make_pair("-1,6", new Location("las - wejście",false,false,false,true,false,false,false, forest)));
+        areas_map.insert(std::make_pair("-2,6", new Location("las - zagajnik",false,false,false,true,false,false,false, forest)));
+        areas_map.insert(std::make_pair("-3,6", new Location("las - polana",false,false,false,true,false,false,false, forest)));
+        areas_map.insert(std::make_pair("-4,6", new Location("las - kapliczka",false,true,false,false,false,false,false, forest)));
+        areas_map.insert(std::make_pair("-4,5", new Location("las - ciemny zagajnik",false,false,false,true,false,false,false, forest_boss)));
+        areas_map.insert(std::make_pair("-5,5", new Location("las - mała polana",false,false,false,false,false,true,false, forest)));
+        areas_map.insert(std::make_pair("-5,4", new Location("las - jaskinia",false,false,false,false,false,true,false, forest)));
+        areas_map.insert(std::make_pair("-6,4", new Location("las - pułapka",false,false,false,false,true,false,false, forest)));
+        areas_map.insert(std::make_pair("-4,7", new Location("las - północ",false,false,false,true,false,false,false, forest)));
+        areas_map.insert(std::make_pair("-4,8", new Location("las - obrzeża",false,false,false,true,false,false,false, forest)));
+
+        //MIASTO
+        areas_map.insert(std::make_pair("0,8", new Location("miasto - wejście południowe",false,false,false,false,false,false,false, city)));
+        areas_map.insert(std::make_pair("0,9", new Location("miasto",false,false,true,false,false,false,false, city)));
+        areas_map.insert(std::make_pair("0,11", new Location("miasto - świątynia",false,true,false,false,false,false,false, city)));
+        areas_map.insert(std::make_pair("1,9", new Location("miasto - brama wschodnia",false,false,false,false,false,false,false, city)));
+        areas_map.insert(std::make_pair("-1,9", new Location("miasto - brama zachodnia",false,false,false,true,false,false,false, city)));
+        areas_map.insert(std::make_pair("0,10", new Location("miasto - brama północna",false,false,false,true,false,false,false, city)));
+        areas_map.insert(std::make_pair("2,9", new Location("miasto - dzielnica wschodnia",false,false,false,true,false,false,false, city)));
+        areas_map.insert(std::make_pair("-2,9", new Location("miasto - slumsy",false,false,false,true,false,false,false, city)));
+        areas_map.insert(std::make_pair("-2,10", new Location("miasto - dzielnica portowa",false,false,false,true,false,false,false, city)));
+        areas_map.insert(std::make_pair("-3,9", new Location("miasto - kryjówka bandytów",false,false,false,true,false,false,false, city_boss)));
+        areas_map.insert(std::make_pair("3,9", new Location("miasto - wejście wschodnie",false,false,false,true,false,false,false, city)));
+        areas_map.insert(std::make_pair("3,8", new Location("miasto - pułapka",false,false,false,false,true,false,false, city)));
+        areas_map.insert(std::make_pair("-4,9", new Location("miasto - koniec",false,false,false,false,false,false,true, city)));
+        
     }
+    
+    
 };
 
 

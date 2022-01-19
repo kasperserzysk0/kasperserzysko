@@ -14,7 +14,11 @@ enum LocationType{
     old_mine,
     old_mine_boss,
     valley,
-    valley_boss
+    valley_boss,
+    forest,
+    forest_boss,
+    city,
+    city_boss
 };
 
 class Location {
@@ -40,6 +44,7 @@ public:
     bool getItem(){return item;}
     bool getHeal(){return heal;}
     bool getShop(){return shop;}
+    bool getWin(){return win;}
     LocationType getType(){return type;}
     
     

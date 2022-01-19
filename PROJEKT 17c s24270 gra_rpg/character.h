@@ -134,6 +134,12 @@ private:
             hp = max_hp;
             std::cout<<"Twoje życie zostało odnowione"<<std::endl;
         }
+        if (current_location->getWin()){
+            std::cout<<"Wygrałeś, gratulacje!"<<std::endl;
+            std::cout<<"Projekt prostej gry rpg,\nKasper Serżysko styczeń 2022"<<std::endl;
+            Utilities::placeHolder();
+            std::exit(0);
+        }
         
     }
     
