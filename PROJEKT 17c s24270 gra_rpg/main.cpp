@@ -11,12 +11,15 @@
 int main(int argc, const char * argv[]) {
     
     Hero hero;
-    
+    bool start = false;
     
     while (true) {
         std::string choice;
         Utilities::clearScreen();
-            std::cout<<"DZIAŁANIA:\ns - Status Postaci\np - Podróż\nb - Sklep\no - Odpocznij\nw - Wyjdź"<<std::endl;
+        if (!start){std::cout<<"Obudziłeś się w ciemnym korytarzu, nie wiesz gdzie jesteś, musisz jakoś znaleźć wyjście\n"<<std::endl;
+		start = true;	
+		}
+        std::cout<<"DZIAŁANIA:\ns - Status Postaci\np - Podróż\nb - Sklep\no - Odpocznij\nw - Wyjdź"<<std::endl;
         std::cout<<"-> ";
         
         

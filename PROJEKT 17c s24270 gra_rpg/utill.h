@@ -8,6 +8,7 @@
 #ifndef utill_h
 #define utill_h
 #include <thread>
+#include <cstring>
 class Utilities {
     
     
@@ -35,6 +36,15 @@ public:
         std::cout<<".";
         sleepFor(1500);
     }
+    static void writeText(std::string text){
+          char tab[1024];
+          strcpy(tab, text.c_str());
+          for (char letter : tab){
+          std::cout<<letter; 
+          sleepFor(200);             
+          } 
+           std::cout<<std::endl;
+}
     static void clearScreen(){
         int n = 3;
            for (n = 0; n < 10; n++)

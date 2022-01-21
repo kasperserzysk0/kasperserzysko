@@ -32,10 +32,11 @@ class Location {
     bool item;
     bool win;
     LocationType type;
+    std::string plot;
     
     
 public:
-    Location(std::string name, bool discovered, bool heal, bool shop, bool enemy, bool end_game, bool item, bool win, LocationType type) : name(name), discovered(discovered), heal(heal), shop(shop), enemy(enemy), end_game(end_game), item(item), win(win), type(type)
+    Location(std::string name, bool discovered, bool heal, bool shop, bool enemy, bool end_game, bool item, bool win, LocationType type, std::string plot) : name(name), discovered(discovered), heal(heal), shop(shop), enemy(enemy), end_game(end_game), item(item), win(win), type(type), plot(plot)
     {}
     std::string getName(){return name;}
     bool getDiscovered(){return discovered;}
@@ -46,7 +47,7 @@ public:
     bool getShop(){return shop;}
     bool getWin(){return win;}
     LocationType getType(){return type;}
-    
+    std::string getPlot(){return plot;}
     
     void setEnemy(bool enemy){
         this->enemy = enemy;

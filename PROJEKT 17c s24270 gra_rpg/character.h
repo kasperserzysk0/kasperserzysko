@@ -14,14 +14,14 @@
 
 class Hero {
     int posX = 0;
-    int posY = 5;
+    int posY = 0;
     int lvl = 0;
-    int max_hp = 1000;
+    int max_hp = 100;
     int hp = max_hp;
     int exp = 0;
     int exp_to_lvlup = 20;
     bool has_item = false;
-    int gold = 200;
+    int gold = 0;
 
     Item* current_item;
     Location* current_location;
@@ -85,7 +85,10 @@ private:
     
     //*********OBSŁUGA ZDARZEŃ**************
     void event(){
-        
+         if (!current_location->getDiscovered()){
+			std::cout<<current_location->getPlot();
+			std::cout<<std::endl;
+			}
         if (current_location->getEnemy()) { 
             std::array<int,3> array_data = area.enemyEncounter(current_location->getType());
            battle(array_data);
@@ -140,6 +143,7 @@ private:
             Utilities::placeHolder();
             std::exit(0);
         }
+       
         
     }
     
@@ -254,9 +258,10 @@ public:
             }
             if (end == 1) {                                         //Po każdym przejściu do innej lokacji, wykonywany jest konkretny event, oraz sprawdznay jest stan zdrowia oraz punkty doświadczenia
                 std::cout<<"Dotarłeś do " <<location<<std::endl;
-                area.getArea(posX, posY)->setDiscovered(true);
                 std::cout<<std::endl;
                 event();
+                area.getArea(posX, posY)->setDiscovered(true);
+                std::cout<<std::endl;
                 Utilities::placeHolder();
             }
         }

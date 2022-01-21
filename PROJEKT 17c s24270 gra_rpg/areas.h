@@ -284,66 +284,66 @@ private:
     void add_areas(){
         
         //TYP JASKINIA
-        areas_map.insert(std::make_pair("0,0", new Location("jaskinia",true,false,false,false,false,false,false, cave)));
-        areas_map.insert(std::make_pair("0,1", new Location("jaskinia - główny korytarz",false,false,false,true,false,false,false, cave)));
-        areas_map.insert(std::make_pair("1,1", new Location("jaskinia - wschód",false,false,false,true,false,false,false, cave)));
-        areas_map.insert(std::make_pair("0,2", new Location("jaskinia - północ",false,false,false,true,false,false,false, cave)));
-        areas_map.insert(std::make_pair("0,3", new Location("jaskinia - wyjście",false,false,false,true,false,false,false, cave)));
-        areas_map.insert(std::make_pair("-1,2", new Location("jaskinia - zapadnięty korytarz",false,false,false,true,false,false,false, cave)));
-        areas_map.insert(std::make_pair("-2,2", new Location("jaskinia - podziemne przejście",false,false,false,true,false,false,false, cave)));
-        areas_map.insert(std::make_pair("-2,1", new Location("jaskinia - podejrzany pokój",false,false,false,false,false,false,false, cave)));
-        areas_map.insert(std::make_pair("-2,0", new Location("jaskinia - pułapka",false,false,false,false,true,false,false, cave)));
+        areas_map.insert(std::make_pair("0,0", new Location("jaskinia",true,false,false,false,false,false,false, cave, "Obudziłeś się w ciemnym korytarzu, nie wiesz gdzie jesteś, musisz jakoś znaleźć wyjście")));
+        areas_map.insert(std::make_pair("0,1", new Location("jaskinia - główny korytarz",false,false,false,true,false,false,false, cave, "Stoisz na rozwidleniu dróg")));
+        areas_map.insert(std::make_pair("1,1", new Location("jaskinia - wschód",false,false,false,true,false,false,false, cave,"")));
+        areas_map.insert(std::make_pair("0,2", new Location("jaskinia - północ",false,false,false,true,false,false,false, cave,"Nie wierzysz w to co widzisz, ale przed toba widzisz chyba wyjście")));
+        areas_map.insert(std::make_pair("0,3", new Location("jaskinia - wyjście",false,false,false,true,false,false,false, cave, "Udało ci się znaleźć wyjście")));
+        areas_map.insert(std::make_pair("-1,2", new Location("jaskinia - zapadnięty korytarz",false,false,false,true,false,false,false, cave,"Nie masz pojęcia, gdzie prowadzi ta droga")));
+        areas_map.insert(std::make_pair("-2,2", new Location("jaskinia - podziemne przejście",false,false,false,true,false,false,false, cave, "Droga na południe wydaje ci się podejrzana, ale może warto zaryzykować?")));
+        areas_map.insert(std::make_pair("-2,1", new Location("jaskinia - podejrzany pokój",false,false,false,false,false,false,false, cave,"Nic ci się nie stało, najwyraźniej nie było się o co martwić, może warto pójść jeszcze dalej")));
+        areas_map.insert(std::make_pair("-2,0", new Location("jaskinia - pułapka",false,false,false,false,true,false,false, cave,"")));
         
         //TYP STARA KOPALNIA
-        areas_map.insert(std::make_pair("-3,2", new Location("stara kopalnia przejście",false,false,false,true,false,false,false, old_mine)));
-        areas_map.insert(std::make_pair("-4,2", new Location("stara kopalnia - zachód",false,false,false,true,false,false,false, old_mine)));
-        areas_map.insert(std::make_pair("-4,1", new Location("stara kopalnia - podziemny pałac, wejście",false,false,false,true,false,false,false, old_mine)));
-        areas_map.insert(std::make_pair("-4,0", new Location("stara kopalnia - podziemny pałac",false,false,false,true,false,false,false, old_mine)));
-        areas_map.insert(std::make_pair("-4,-1", new Location("stara kopalnia - podziemny pałac, sala tronowa",false,false,false,true,false,false,false, old_mine_boss))); //BOSS STARA KOPALNIA
-        areas_map.insert(std::make_pair("-4,3", new Location("stara kopalnia - północ",false,false,false,true,false,false,false, old_mine)));
-        areas_map.insert(std::make_pair("-4,-2", new Location("stara kopalnia - królewski magazyn",false,false,false,false,false,true,false, old_mine)));
+        areas_map.insert(std::make_pair("-3,2", new Location("stara kopalnia przejście",false,false,false,true,false,false,false, old_mine, "Ściany tutaj wyglądają zupełnie inaczej")));
+        areas_map.insert(std::make_pair("-4,2", new Location("stara kopalnia - zachód",false,false,false,true,false,false,false, old_mine, "")));
+        areas_map.insert(std::make_pair("-4,1", new Location("stara kopalnia - podziemny pałac, wejście",false,false,false,true,false,false,false, old_mine, "Przed tobą znajduje się majestatyczna budowla, może warto sprawdzić co jest w środku?")));
+        areas_map.insert(std::make_pair("-4,0", new Location("stara kopalnia - podziemny pałac",false,false,false,true,false,false,false, old_mine, "Wszedłeś do środka, korytarz przed tobą jest oświetlony")));
+        areas_map.insert(std::make_pair("-4,-1", new Location("stara kopalnia - podziemny pałac, sala tronowa",false,false,false,true,false,false,false, old_mine_boss, ""))); //BOSS STARA KOPALNIA
+        areas_map.insert(std::make_pair("-4,3", new Location("stara kopalnia - północ",false,false,false,true,false,false,false, old_mine, "")));
+        areas_map.insert(std::make_pair("-4,-2", new Location("stara kopalnia - królewski magazyn",false,false,false,false,false,true,false, old_mine, "Pośród nieprzydatnych rzeczy, udało ci się znaleźć coś wartościowego")));
 
         //NIZINA
-        areas_map.insert(std::make_pair("0,4", new Location("dolina - wejście do kopalni",false,true,false,false,false,false,false, valley)));
-        areas_map.insert(std::make_pair("0,5", new Location("dolina - południowe przejście",false,false,false,true,false,false,false, valley)));
-        areas_map.insert(std::make_pair("0,6", new Location("dolina - karczma",false,false,true,false,false,false,false, valley)));
-        areas_map.insert(std::make_pair("1,6", new Location("dolina - zejście do rzeki",false,false,false,true,false,false,false, valley)));
-        areas_map.insert(std::make_pair("2,6", new Location("dolina - wschód",false,false,false,true,false,false,false, valley)));
-        areas_map.insert(std::make_pair("3,6", new Location("dolina - głeboka rzeka",false,false,false,false,true,false,false, valley)));
-        areas_map.insert(std::make_pair("2,5", new Location("dolina - rzeka",false,false,false,true,false,false,false, valley)));
-        areas_map.insert(std::make_pair("3,5", new Location("dolina - most",false,false,false,true,false,false,false, valley)));
-        areas_map.insert(std::make_pair("4,5", new Location("dolina - plaża",false,false,false,true,false,false,false, valley)));
-        areas_map.insert(std::make_pair("4,6", new Location("dolina - wzgórze",false,false,false,true,false,false,false, valley_boss)));
-        areas_map.insert(std::make_pair("5,6", new Location("dolina - stara chata",false,false,true,false,false,false,false, valley)));
-        areas_map.insert(std::make_pair("0,7", new Location("dolina - północ",false,false,false,true,false,false,false, valley)));
+        areas_map.insert(std::make_pair("0,4", new Location("dolina - wejście do kopalni",false,true,false,false,false,false,false, valley, "Za tobą znajduje się wejście do kopalni, chyba nie chcesz tam wracać")));
+        areas_map.insert(std::make_pair("0,5", new Location("dolina - południowe przejście",false,false,false,true,false,false,false, valley, "Przed sobą widzisz dym")));
+        areas_map.insert(std::make_pair("0,6", new Location("dolina - karczma",false,false,true,false,false,false,false, valley, "Znajdujesz karczmę, może warto by było zobaczyć co jest w środku?")));
+        areas_map.insert(std::make_pair("1,6", new Location("dolina - zejście do rzeki",false,false,false,true,false,false,false, valley, "Droga prowadzi w dół. Słyszysz szum rzeki")));
+        areas_map.insert(std::make_pair("2,6", new Location("dolina - wschód",false,false,false,true,false,false,false, valley, "Chcesz przejść na drugi brzeg. Wolisz iść dalej na wschód i płynąć wpław, czy może poszukać jakiegoś przejścia?")));
+        areas_map.insert(std::make_pair("3,6", new Location("dolina - głeboka rzeka",false,false,false,false,true,false,false, valley,"")));
+        areas_map.insert(std::make_pair("2,5", new Location("dolina - rzeka",false,false,false,true,false,false,false, valley, "Idziesz cały czas przy rzece, a horyzoncie dostrzegasz most")));
+        areas_map.insert(std::make_pair("3,5", new Location("dolina - most",false,false,false,true,false,false,false, valley, "")));
+        areas_map.insert(std::make_pair("4,5", new Location("dolina - plaża",false,false,false,true,false,false,false, valley, "Dotrałeś na drugi brzeg, widzisz, że na wzgórzu przed toba znajduje się jakaś chata")));
+        areas_map.insert(std::make_pair("4,6", new Location("dolina - wzgórze",false,false,false,true,false,false,false, valley_boss, "")));
+        areas_map.insert(std::make_pair("5,6", new Location("dolina - stara chata",false,false,true,false,false,false,false, valley, "W chcacie znalazłeś przydatną rzecz")));
+        areas_map.insert(std::make_pair("0,7", new Location("dolina - północ",false,false,false,true,false,false,false, valley, "Na północy widzisz wieże miasta")));
 
 
         //LAS
-        areas_map.insert(std::make_pair("-1,6", new Location("las - wejście",false,false,false,true,false,false,false, forest)));
-        areas_map.insert(std::make_pair("-2,6", new Location("las - zagajnik",false,false,false,true,false,false,false, forest)));
-        areas_map.insert(std::make_pair("-3,6", new Location("las - polana",false,false,false,true,false,false,false, forest)));
-        areas_map.insert(std::make_pair("-4,6", new Location("las - kapliczka",false,true,false,false,false,false,false, forest)));
-        areas_map.insert(std::make_pair("-4,5", new Location("las - ciemny zagajnik",false,false,false,true,false,false,false, forest_boss)));
-        areas_map.insert(std::make_pair("-5,5", new Location("las - mała polana",false,false,false,false,false,true,false, forest)));
-        areas_map.insert(std::make_pair("-5,4", new Location("las - jaskinia",false,false,false,false,false,true,false, forest)));
-        areas_map.insert(std::make_pair("-6,4", new Location("las - pułapka",false,false,false,false,true,false,false, forest)));
-        areas_map.insert(std::make_pair("-4,7", new Location("las - północ",false,false,false,true,false,false,false, forest)));
-        areas_map.insert(std::make_pair("-4,8", new Location("las - obrzeża",false,false,false,true,false,false,false, forest)));
+        areas_map.insert(std::make_pair("-1,6", new Location("las - wejście",false,false,false,true,false,false,false, forest, "")));
+        areas_map.insert(std::make_pair("-2,6", new Location("las - zagajnik",false,false,false,true,false,false,false, forest, "")));
+        areas_map.insert(std::make_pair("-3,6", new Location("las - polana",false,false,false,true,false,false,false, forest, "")));
+        areas_map.insert(std::make_pair("-4,6", new Location("las - kapliczka",false,true,false,false,false,false,false, forest, "")));
+        areas_map.insert(std::make_pair("-4,5", new Location("las - ciemny zagajnik",false,false,false,true,false,false,false, forest_boss, "")));
+        areas_map.insert(std::make_pair("-5,5", new Location("las - mała polana",false,false,false,false,false,true,false, forest, "")));
+        areas_map.insert(std::make_pair("-5,4", new Location("las - jaskinia",false,false,false,false,false,true,false, forest, "")));
+        areas_map.insert(std::make_pair("-6,4", new Location("las - pułapka",false,false,false,false,true,false,false, forest, "")));
+        areas_map.insert(std::make_pair("-4,7", new Location("las - północ",false,false,false,true,false,false,false, forest, "")));
+        areas_map.insert(std::make_pair("-4,8", new Location("las - obrzeża",false,false,false,true,false,false,false, forest, "")));
 
         //MIASTO
-        areas_map.insert(std::make_pair("0,8", new Location("miasto - wejście południowe",false,false,false,false,false,false,false, city)));
-        areas_map.insert(std::make_pair("0,9", new Location("miasto",false,false,true,false,false,false,false, city)));
-        areas_map.insert(std::make_pair("0,11", new Location("miasto - świątynia",false,true,false,false,false,false,false, city)));
-        areas_map.insert(std::make_pair("1,9", new Location("miasto - brama wschodnia",false,false,false,false,false,false,false, city)));
-        areas_map.insert(std::make_pair("-1,9", new Location("miasto - brama zachodnia",false,false,false,true,false,false,false, city)));
-        areas_map.insert(std::make_pair("0,10", new Location("miasto - brama północna",false,false,false,true,false,false,false, city)));
-        areas_map.insert(std::make_pair("2,9", new Location("miasto - dzielnica wschodnia",false,false,false,true,false,false,false, city)));
-        areas_map.insert(std::make_pair("-2,9", new Location("miasto - slumsy",false,false,false,true,false,false,false, city)));
-        areas_map.insert(std::make_pair("-2,10", new Location("miasto - dzielnica portowa",false,false,false,true,false,false,false, city)));
-        areas_map.insert(std::make_pair("-3,9", new Location("miasto - kryjówka bandytów",false,false,false,true,false,false,false, city_boss)));
-        areas_map.insert(std::make_pair("3,9", new Location("miasto - wejście wschodnie",false,false,false,true,false,false,false, city)));
-        areas_map.insert(std::make_pair("3,8", new Location("miasto - pułapka",false,false,false,false,true,false,false, city)));
-        areas_map.insert(std::make_pair("-4,9", new Location("miasto - koniec",false,false,false,false,false,false,true, city)));
+        areas_map.insert(std::make_pair("0,8", new Location("miasto - wejście południowe",false,false,false,false,false,false,false, city, "Wchodzi do miasta, mijasz wielke mury")));
+        areas_map.insert(std::make_pair("0,9", new Location("miasto",false,false,true,false,false,false,false, city, "Znajdujesz się w centrum miasta, gdzie chcesz teraz iść")));
+        areas_map.insert(std::make_pair("0,11", new Location("miasto - świątynia",false,true,false,false,false,false,false, city, "Udałeś się do świątyni, kapłani wyleczyli twoje rany")));
+        areas_map.insert(std::make_pair("1,9", new Location("miasto - brama wschodnia",false,false,false,false,false,false,false, city, "Ciekawe co znajduje się dalej")));
+        areas_map.insert(std::make_pair("-1,9", new Location("miasto - brama zachodnia",false,false,false,true,false,false,false, city, "Możesz udać się tędy do portu")));
+        areas_map.insert(std::make_pair("0,10", new Location("miasto - brama północna",false,false,false,true,false,false,false, city, "Nastęona brama")));
+        areas_map.insert(std::make_pair("2,9", new Location("miasto - dzielnica wschodnia",false,false,false,true,false,false,false, city, "Kolejna biedna dzielnica i kolejne biedne domy")));
+        areas_map.insert(std::make_pair("-2,9", new Location("miasto - slumsy",false,false,false,true,false,false,false, city, "Lepiej trzymaj swoją sakiewke")));
+        areas_map.insert(std::make_pair("-2,10", new Location("miasto - dzielnica portowa",false,false,false,true,false,false,false, city, "Nigdy w życiu nie widziałeś tyle statków w jednym miejscu")));
+        areas_map.insert(std::make_pair("-3,9", new Location("miasto - kryjówka bandytów",false,false,false,true,false,false,false, city_boss, "Dowiedziałeś się, kto zostawił cię na śmierć")));
+        areas_map.insert(std::make_pair("3,9", new Location("miasto - wejście wschodnie",false,false,false,true,false,false,false, city, "")));
+        areas_map.insert(std::make_pair("3,8", new Location("miasto - pułapka",false,false,false,false,true,false,false, city, "")));
+        areas_map.insert(std::make_pair("-4,9", new Location("miasto - koniec",false,false,false,false,false,false,true, city, "")));
         
     }
     
