@@ -257,7 +257,7 @@ public:
                 }
                 break;
             }  
-            case city_boss:{                //BOSS STAREJ KOPALNI
+            case city_boss:{                //BOSS MIASTA
                 enemy = "Kapitan piratów";
                 hp_lost = 400;
                 exp_gain = 250;
@@ -328,7 +328,7 @@ private:
         areas_map.insert(std::make_pair("-5,4", new Location("las - jaskinia",false,false,false,false,false,true,false, forest, "")));
         areas_map.insert(std::make_pair("-6,4", new Location("las - pułapka",false,false,false,false,true,false,false, forest, "")));
         areas_map.insert(std::make_pair("-4,7", new Location("las - północ",false,false,false,true,false,false,false, forest, "")));
-        areas_map.insert(std::make_pair("-4,8", new Location("las - obrzeża",false,false,false,true,false,false,false, forest, "")));
+        areas_map.insert(std::make_pair("-5,6", new Location("las - obrzeża",false,false,false,true,false,false,false, forest, "")));
 
         //MIASTO
         areas_map.insert(std::make_pair("0,8", new Location("miasto - wejście południowe",false,false,false,false,false,false,false, city, "Wchodzi do miasta, mijasz wielke mury")));

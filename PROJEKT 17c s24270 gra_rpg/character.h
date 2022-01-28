@@ -37,7 +37,7 @@ class Hero {
         if (exp >= exp_to_lvlup){
             exp = exp - exp_to_lvlup;
             lvl = lvl + 1;
-            max_hp = 100 + 5 * lvl;
+            max_hp = max_hp + 5 * lvl;
             exp_to_lvlup = 2 * exp_to_lvlup;
             std::cout<<"Zyskałeś poziom "<<lvl<<std::endl;
         }
@@ -57,7 +57,7 @@ class Hero {
 
 public:
     Hero(){
-        current_location = area.getArea(0, 0);
+        current_location = area.getArea(posX, posY);
         location = current_location->getName();
     }
     

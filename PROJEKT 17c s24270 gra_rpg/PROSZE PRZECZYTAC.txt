@@ -1,0 +1,6 @@
+Dzień dobry,
+gra posiada dosyć wysoki poziom trudności i potrzeba trochę czasu, żeby dojść do wygrywającego pola,
+żeby ułatwić dojście do wygrywającego pola, należy w pliku character.h zamienić wartość zmiennej max_hp na 10000.
+Aby dojśc do pola wygrywającego należy iść cały czas na północ, aż dotrze się do lokacji o nazwie miasto, potem cały czas na zachód
+
+
